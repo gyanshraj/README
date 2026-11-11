@@ -1,11 +1,9 @@
-# README
-
 # Network Packet Sniffer and Log Analyser
 
-Status: Planned (In Development)
+Status: Functional prototype
 
 ## Project Overview
-A lightweight, modular command-line tool built with Python to capture, unpack, and inspect raw IPv4 packets (TCP, UDP, ICMP) and correlate network events with web server access logs to detect anomalous authentication surges.
+A lightweight, modular command-line tool built with Python to capture and inspect raw IPv4 packets (TCP, UDP, ICMP) and correlate network events with web server access logs to detect anomalous authentication surges.
 
 ---
 
@@ -34,8 +32,8 @@ A lightweight, modular command-line tool built with Python to capture, unpack, a
 
 ### Installation & Execution
 1. Clone this repository:
-   git clone [Your Repository URL]
-   cd network-packet-sniffer
+   git clone https://github.com/gyanshraj/README.git
+   cd README
 
 2. Run the packet sniffer on default interface:
    python3 sniffer.py --interface eth0 --count 50
@@ -49,10 +47,21 @@ A lightweight, modular command-line tool built with Python to capture, unpack, a
 5. Run automated test suite:
    python3 -m unittest discover tests/
 
+Packet captures require Linux raw-socket privileges. Run the capture command with
+the appropriate permissions for your environment. Log analysis does not require
+raw-socket privileges.
+
+### Filters and exports
+- `--source-ip` and `--destination-ip` restrict packets to an IPv4 address.
+- `--output-json` writes packet records or authentication alerts as JSON.
+- `--output-csv` writes captured packet records as CSV.
+- Authentication alerts count requests whose path contains `/login`, `/signin`,
+  or `/authenticate`; malformed access-log lines are skipped.
+
 ---
 
 ## Known Limitations & Planned Enhancements
-- Current Limitation: Raw socket sniffing is optimized for Linux operating systems.
+- Current Limitation: Raw socket sniffing is optimized for Linux operating systems and requires packet-capture privileges.
 - Planned Enhancement: Integrate Scapy for cross-platform packet parsing and implement pcap file replaying by May 2027.
 
 ---
